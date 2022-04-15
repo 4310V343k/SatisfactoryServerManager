@@ -75,16 +75,18 @@ class AgentHandler {
 
     PullDockerImage() {
         return new Promise((resolve, reject) => {
-            logger.info("[AGENT_HANDLER] - Pulling Docker Image..");
-            this._docker.image.create({}, {
-                    fromImage: "mrhid6/ssmagent",
-                    tag: "latest"
+            logger.info("[AGENT_HANDLER] - Building Docker Image..");
+            this._docker.image
+                .build("../Dockerfile", {
+                    t: "dev/ssmagent"
                 })
-                .then(stream => promisifyStream(stream))
-                .then(() => {
-                    logger.info("[AGENT_HANDLER] - Pulled Docker Image Successfully!");
-                    resolve()
-                });
+              .then((stream) => promisifyStream(stream))
+              .then(() => {
+                logger.info(
+                  "[AGENT_HANDLER] - Pulled Docker Image Successfully!"
+                );
+                resolve();
+              });
         })
     }
 
@@ -339,7 +341,7 @@ class AgentHandler {
             }
 
             this._docker.container.create({
-                Image: 'mrhid6/ssmagent:latest',
+                Image: 'dev/ssmagent:latest',
                 name: Name,
                 HostConfig: {
                     Binds,
