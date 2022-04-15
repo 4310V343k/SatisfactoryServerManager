@@ -77,7 +77,7 @@ class AgentHandler {
     PullDockerImage() {
         return new Promise((resolve, reject) => {
             logger.info("[AGENT_HANDLER] - Building Docker Image..");
-            let tarStream = tar.pack('../Dockerfile');
+            let tarStream = tar.pack('Dockerfile');
             this._docker.image
                 .build(tarStream, {
                     t: "dev/ssmagent"
