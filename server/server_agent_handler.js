@@ -36,7 +36,7 @@ const ObjNotifyServerOffline = require("../objects/notifications/obj_notify_serv
 
 
 const promisifyStream = (stream) => new Promise((resolve, reject) => {
-    stream.on('data', (d) => {})
+    stream.on('data', d => console.log(d.toString()));
     stream.on('end', resolve)
     stream.on('error', reject)
 });
