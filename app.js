@@ -106,7 +106,7 @@ class AppServer {
         var corsOptions = {
             origin: '*',
             credentials: true,
-            optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
+            optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
         }
         app.use(cors(corsOptions));
 
@@ -168,6 +168,42 @@ class AppServer {
     }
 
     fixFileStoreSessionDelete() {
+
+        FSStore.prototype.get = function (sid, fn) {
+              var now = new Date().getTime(),
+                file = path.join(this.dir, sid + ".json");
+              fs.exists(file, function (exists) {
+                if (!exists) return fn();
+
+                fs.readFile(file, "UTF-8", function (err, data) {
+                  // errno=2, 32: ENOENT, No such file or directory is not an error.
+                  if (err && err.errno != 2 && err.errno != 32) throw err;
+                  // AssesionError occurs !?
+                  //console.log(sid);
+                  //console.log(err);
+                  //try {
+                  if (!data) {
+                    // no session file
+                    // the file is somehow empty. not much we can do, just continue.
+                    return fn();
+                  }
+                  try {
+                    data = JSON.parse(data);
+                  } catch (e) {
+                    return fn();
+                  }
+                  if (data.expired < now) {
+                    return fn();
+                  } else {
+                    delete data.expired;
+                    fn(null, data);
+                  }
+                  //} catch (e) {
+                  //  fn(e);
+                  //}
+                });
+              });
+        };
         FSStore.prototype.reap = function () {
             var now = new Date().getTime();
             var self = this;
