@@ -77,7 +77,7 @@ class AgentHandler {
     PullDockerImage() {
         return new Promise((resolve, reject) => {
             logger.info("[AGENT_HANDLER] - Building Docker Image..");
-            let dockerfilePath = path.join(__dirname, "../Dockerfile");
+            let dockerfilePath = path.join(__dirname, "../");
             logger.info("[AGENT_HANDLER] - Using Dockerfile: " + dockerfilePath);
             this._docker.image
                 .build(tar.pack(dockerfilePath), {
