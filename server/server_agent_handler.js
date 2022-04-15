@@ -17,6 +17,7 @@ const DB = require("./server_db");
 
 const fs = require("fs-extra")
 const path = require("path");
+const tar = require("tar-fs");
 
 
 const NotificationHandler = require("./server_notifcation_handler");
@@ -76,8 +77,9 @@ class AgentHandler {
     PullDockerImage() {
         return new Promise((resolve, reject) => {
             logger.info("[AGENT_HANDLER] - Building Docker Image..");
+            let tarStream = tar.pack('../Dockerfile');
             this._docker.image
-                .build("Dockerfile", {
+                .build(tarStream, {
                     t: "dev/ssmagent"
                 })
               .then((stream) => promisifyStream(stream))
