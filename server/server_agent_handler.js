@@ -78,7 +78,7 @@ class AgentHandler {
         return new Promise((resolve, reject) => {
             logger.info("[AGENT_HANDLER] - Building Docker Image..");
             let dockerfilePath = path.join(__dirname, "../");
-            logger.info("[AGENT_HANDLER] - Using Dockerfile: " + dockerfilePath);
+            logger.info("[AGENT_HANDLER] - Using Dockerfile from: " + dockerfilePath);
             this._docker.image
                 .build(tar.pack(dockerfilePath), {
                     t: "dev/ssmagent"
@@ -86,7 +86,7 @@ class AgentHandler {
               .then((stream) => promisifyStream(stream))
               .then(() => {
                 logger.info(
-                  "[AGENT_HANDLER] - Pulled Docker Image Successfully!"
+                  "[AGENT_HANDLER] - Built Docker Image Successfully!"
                 );
                 resolve();
               });
