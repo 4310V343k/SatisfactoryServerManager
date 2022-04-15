@@ -77,7 +77,7 @@ class AgentHandler {
         return new Promise((resolve, reject) => {
             logger.info("[AGENT_HANDLER] - Building Docker Image..");
             this._docker.image
-                .build("../Dockerfile", {
+                .build("Dockerfile", {
                     t: "dev/ssmagent"
                 })
               .then((stream) => promisifyStream(stream))
