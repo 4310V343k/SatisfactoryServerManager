@@ -244,13 +244,13 @@ class Page_Server {
         }
         $("#inp_updatesfonstart").bootstrapToggle("disable");
 
-        $("#inp_expermiental").bootstrapToggle("enable");
-        if (ssmConfig.inp_expermiental == true) {
-          $("#inp_expermiental").bootstrapToggle("on");
+        $("#inp_experimental").bootstrapToggle("enable");
+        if (ssmConfig.expermiental == true) {
+          $("#inp_experimental").bootstrapToggle("on");
         } else {
-          $("#inp_expermiental").bootstrapToggle("off");
+          $("#inp_experimental").bootstrapToggle("off");
         }
-        $("#inp_expermiental").bootstrapToggle("disable");
+        $("#inp_experimental").bootstrapToggle("disable");
 
         if (Agent.info.serverstate.status != "notinstalled") {
             const gameConfig = Agent.info.config.game;
@@ -273,7 +273,7 @@ class Page_Server {
         $("#inp_maxplayers").prop("disabled", false);
         $("#inp_workerthreads").prop("disabled", false);
         $('#inp_updatesfonstart').bootstrapToggle('enable');
-        $("#inp_expermiental").bootstrapToggle("enable");
+        $("#inp_experimental").bootstrapToggle("enable");
     }
 
     lockSFSettings() {
@@ -284,7 +284,7 @@ class Page_Server {
         $("#inp_maxplayers").prop("disabled", true);
         $("#inp_workerthreads").prop("disabled", true);
         $("#inp_updatesfonstart").bootstrapToggle("disable");
-        $("#inp_expermiental").bootstrapToggle("disable");
+        $("#inp_experimental").bootstrapToggle("disable");
     }
 
     submitSFSettings() {
@@ -292,7 +292,7 @@ class Page_Server {
         const maxplayers = $('#inp_maxplayers').val();
         const workerthreads = $('#inp_workerthreads').val();
         const updatesfonstart = $("#inp_updatesfonstart").is(":checked");
-        const experimental = $("#inp_expermiental").is(":checked");
+        const experimental = $("#inp_experimental").is(":checked");
 
         const postData = {
             agentid: Agent.id,
