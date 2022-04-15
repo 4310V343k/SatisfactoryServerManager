@@ -229,7 +229,7 @@ class ServerSteamCMD {
         return output;
     }
 
-    updateApp = async (appId, installDir) => {
+    updateApp = async (appId, installDir, experimental) => {
         if (!path.isAbsolute(installDir)) {
             throw new TypeError('installDir must be an absolute path to update an app')
         }
@@ -240,6 +240,9 @@ class ServerSteamCMD {
             `force_install_dir "${installDir}"`,
             `app_update ${appId}`
         ];
+        if (experimental) {
+            commands.push(`-beta experimental`)
+        }
         return await this.run(commands);
     }
 

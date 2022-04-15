@@ -236,13 +236,21 @@ class Page_Server {
         const Agent = this.Agent;
         const ssmConfig = Agent.info.config.satisfactory;
 
-        $('#inp_updatesfonstart').bootstrapToggle('enable')
+        $("#inp_updatesfonstart").bootstrapToggle("enable");
         if (ssmConfig.updateonstart == true) {
-            $('#inp_updatesfonstart').bootstrapToggle('on')
+          $("#inp_updatesfonstart").bootstrapToggle("on");
         } else {
-            $('#inp_updatesfonstart').bootstrapToggle('off')
+          $("#inp_updatesfonstart").bootstrapToggle("off");
         }
-        $('#inp_updatesfonstart').bootstrapToggle('disable')
+        $("#inp_updatesfonstart").bootstrapToggle("disable");
+
+        $("#inp_expermiental").bootstrapToggle("enable");
+        if (ssmConfig.inp_expermiental == true) {
+          $("#inp_expermiental").bootstrapToggle("on");
+        } else {
+          $("#inp_expermiental").bootstrapToggle("off");
+        }
+        $("#inp_expermiental").bootstrapToggle("disable");
 
         if (Agent.info.serverstate.status != "notinstalled") {
             const gameConfig = Agent.info.config.game;
@@ -265,6 +273,7 @@ class Page_Server {
         $("#inp_maxplayers").prop("disabled", false);
         $("#inp_workerthreads").prop("disabled", false);
         $('#inp_updatesfonstart').bootstrapToggle('enable');
+        $("#inp_expermiental").bootstrapToggle("enable");
     }
 
     lockSFSettings() {
@@ -274,19 +283,22 @@ class Page_Server {
         $("#cancel-sf-settings").prop("disabled", true);
         $("#inp_maxplayers").prop("disabled", true);
         $("#inp_workerthreads").prop("disabled", true);
-        $('#inp_updatesfonstart').bootstrapToggle('disable');
+        $("#inp_updatesfonstart").bootstrapToggle("disable");
+        $("#inp_expermiental").bootstrapToggle("disable");
     }
 
     submitSFSettings() {
         const Agent = this.Agent;
         const maxplayers = $('#inp_maxplayers').val();
         const workerthreads = $('#inp_workerthreads').val();
-        const updatesfonstart = $('#inp_updatesfonstart').is(":checked")
+        const updatesfonstart = $("#inp_updatesfonstart").is(":checked");
+        const experimental = $("#inp_expermiental").is(":checked");
 
         const postData = {
             agentid: Agent.id,
             maxplayers,
             updatesfonstart,
+            experimental,
             workerthreads
         }
 

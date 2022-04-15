@@ -191,6 +191,7 @@ class SF_Server_Handler {
             logger.info("[SFS_Handler] - Installing SF Dedicated Server");
 
             const installPath = `${path.resolve(Config.get("satisfactory.server_location"))}`
+            const experimental = `${path.resolve(Config.get("satisfactory.experimental"))}`
 
             if (installPath.indexOf(" ") > -1) {
                 logger.error("[SFS_Handler] - Install path must not contain spaces!")
@@ -198,31 +199,39 @@ class SF_Server_Handler {
                 return;
             }
 
-            this.SteamCMD.updateApp(1690800, installPath).then(() => {
-                this.isGameInstalled().then(installed => {
-                    if (installed) {
-                        this._getServerState();
-                        logger.info("[SFS_Handler] - Installed SF Dedicated Server");
-                        Config.set("satisfactory.installed", true);
-                        this.SteamCMD.getAppInfo(1690800).then(appInfo => {
-                            const ServerVersion = appInfo.depots.branches.public.buildid;
-                            Config.set("satisfactory.server_version", ServerVersion)
-                            const GameConfig = require("./server_gameconfig");
-                            return GameConfig.load()
-                        }).then(() => {
-                            resolve(true);
-                        }).catch(reject)
-                    } else {
-                        reject(new SFFailedInstall())
-                        return;
-                    }
-
-                })
-
-
-            }).catch(err => {
+            this.SteamCMD.updateApp(1690800, installPath, experimental)
+              .then(() => {
+                this.isGameInstalled().then((installed) => {
+                  if (installed) {
+                    this._getServerState();
+                    logger.info(
+                      "[SFS_Handler] - Installed SF Dedicated Server"
+                    );
+                    Config.set("satisfactory.installed", true);
+                    this.SteamCMD.getAppInfo(1690800)
+                      .then((appInfo) => {
+                        const ServerVersion =
+                          appInfo.depots.branches.public.buildid;
+                        Config.set(
+                          "satisfactory.server_version",
+                          ServerVersion
+                        );
+                        const GameConfig = require("./server_gameconfig");
+                        return GameConfig.load();
+                      })
+                      .then(() => {
+                        resolve(true);
+                      })
+                      .catch(reject);
+                  } else {
+                    reject(new SFFailedInstall());
+                    return;
+                  }
+                });
+              })
+              .catch((err) => {
                 reject(err);
-            })
+              });
         });
     }
 
@@ -717,6 +726,8 @@ class SF_Server_Handler {
         return new Promise((resolve, reject) => {
             const updatesfonstart = data.updatesfonstart == "true";
             Config.set("satisfactory.updateonstart", updatesfonstart)
+            const experimental = data.experimental == "true";
+            Config.set("satisfactory.experimental", experimental);
             Config.set("satisfactory.worker_threads", data.workerthreads)
 
             const maxPlayers = data.maxplayers || 4;

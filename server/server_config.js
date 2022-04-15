@@ -129,7 +129,8 @@ class ServerConfig extends iConfig {
         super.get("ssm.backup.nextbackup", 0);
 
         super.get("satisfactory.installed", false)
-        super.get("satisfactory.updateonstart", false)
+        super.get("satisfactory.updateonstart", false);
+        super.get("satisfactory.experimental", false);
         super.set("satisfactory.server_location", path.join(userDataPath, "SFServer"));
 
         if (platform == "win32") {
