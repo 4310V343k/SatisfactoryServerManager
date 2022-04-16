@@ -2,13 +2,16 @@ FROM ubuntu:20.04
 
 RUN apt-get update -y && apt-get install wget curl lib32gcc1 -y
 
-RUN mkdir -p /root/.SatisfactoryServerManager
-RUN mkdir -p /root/.config/Epic/FactoryGame
+RUN useradd -ms /bin/bash ssm
 
+USER ssm
 
-RUN mkdir /SSM
-VOLUME /SSM
-COPY release-builds/linux/ /SSM
+RUN mkdir -p /home/ssm/.SatisfactoryServerManager
+RUN mkdir -p /root/ssm/.config/Epic/FactoryGame
+
+RUN mkdir /home/ssm/SSM
+VOLUME /home/ssm/SSM
+COPY release-builds/linux/ /home/ssm/SSM
 
 EXPOSE 3000/tcp
 
