@@ -7,7 +7,7 @@ RUN useradd -ms /bin/bash ssm
 USER ssm
 
 RUN mkdir -p /home/ssm/.SatisfactoryServerManager
-RUN mkdir -p /root/ssm/.config/Epic/FactoryGame
+RUN mkdir -p /home/ssm/.config/Epic/FactoryGame
 
 RUN mkdir /home/ssm/SSM
 VOLUME /home/ssm/SSM
