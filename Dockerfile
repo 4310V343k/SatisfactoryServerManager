@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-RUN apt-get update && apt-get install -y lib32gcc1
+RUN apt-get update -y && apt-get install wget curl lib32gcc1 -y
 
 RUN mkdir -p /root/.SatisfactoryServerManager
 RUN mkdir -p /root/.config/Epic/FactoryGame
