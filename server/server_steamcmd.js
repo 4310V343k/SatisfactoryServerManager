@@ -238,11 +238,8 @@ class ServerSteamCMD {
 
         const commands = [
             `force_install_dir "${installDir}"`,
-            `app_update ${appId}`
+            `app_update ${appId}${experimental ? ' beta experimental' : ''}`,
         ];
-        if (experimental) {
-            commands.push(`beta experimental`)
-        }
         return await this.run(commands);
     }
 
