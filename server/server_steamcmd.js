@@ -204,7 +204,7 @@ class ServerSteamCMD {
         const {
             dispose: disposeDataListener
         } = pty.onData(outputLine => {
-
+            logger.info(`[STEAM CMD] [OUTPUT] - ${outputLine}`);
             const normalisedLine = outputLine
                 .replace(/\r\n/g, '\n')
                 .replace(/\r/, '')
@@ -241,7 +241,7 @@ class ServerSteamCMD {
             `app_update ${appId}`
         ];
         if (experimental) {
-            commands.push(`-beta experimental`)
+            commands.push(`beta experimental`)
         }
         return await this.run(commands);
     }
