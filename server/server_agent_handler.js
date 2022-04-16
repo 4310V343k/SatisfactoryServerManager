@@ -325,8 +325,7 @@ class AgentHandler {
             ExposedPorts[`${Port}/udp`] = {}
 
             const TempBinds = [
-                `/SSMAgents/${Name}/SSM:/home/ssm/.SatisfactoryServerManager`,
-                `/SSMAgents/${Name}/.config:/home/ssm/.config/Epic/FactoryGame`,
+                `/SSMAgents/${Name}/:/home/ssm/`,
             ]
 
             let Binds = []
