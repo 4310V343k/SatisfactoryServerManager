@@ -15,4 +15,4 @@ COPY release-builds/linux/ /home/ssm/SSM
 
 EXPOSE 3000/tcp
 
-ENTRYPOINT [ "/SSM/SatisfactoryServerManager", "--agent" ]
+ENTRYPOINT [ "/home/ssm/SSM", "--agent" ]
