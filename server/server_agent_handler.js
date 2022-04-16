@@ -324,29 +324,10 @@ class AgentHandler {
             ExposedPorts[`${BeaconPort}/udp`] = {}
             ExposedPorts[`${Port}/udp`] = {}
 
-            const TempBinds = [
-                `/SSMAgents/${Name}/:/home/ssm/`,
-            ]
-
-            let Binds = []
-
-            for (let i = 0; i < TempBinds.length; i++) {
-                const Bind = TempBinds[i];
-                const splitBind = Bind.split(":");
-                const desiredMode = 0o2777
-                const Dir = path.resolve(splitBind[0]);
-                if (fs.existsSync(Dir) == false) {
-                    fs.ensureDirSync(Dir, desiredMode)
-                }
-
-                Binds.push(`${Dir}:${splitBind[1]}`)
-            }
-
             this._docker.container.create({
                 Image: 'dev/ssmagent:latest',
                 name: Name,
                 HostConfig: {
-                    Binds,
                     PortBindings: PortBindings
                 },
                 ExposedPorts
