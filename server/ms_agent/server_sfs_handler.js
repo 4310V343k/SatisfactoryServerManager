@@ -191,7 +191,7 @@ class SF_Server_Handler {
             logger.info("[SFS_Handler] - Installing SF Dedicated Server");
 
             const installPath = `${path.resolve(Config.get("satisfactory.server_location"))}`
-            const experimental = `${path.resolve(Config.get("satisfactory.experimental"))}`
+            const experimental = Config.get("satisfactory.experimental") == 'true'
 
             if (installPath.indexOf(" ") > -1) {
                 logger.error("[SFS_Handler] - Install path must not contain spaces!")
