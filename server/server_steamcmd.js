@@ -172,7 +172,7 @@ class ServerSteamCMD {
 
             if (exitCode !== EXIT_CODES.NO_ERROR &&
                 exitCode !== EXIT_CODES.INITIALIZED) {
-                throw new SteamCMDError(exitCode)
+                throw new SteamCMDError(`${exitCode}. User: ${this.options.username}`);
             }
 
             const output = await outputPromise;
