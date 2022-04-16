@@ -4,6 +4,7 @@ var router = express.Router();
 const ServerApp = require("../../server/server_app");
 const AgentHandler = require("../../server/server_agent_handler");
 const Config = require("../../server/server_config");
+const Logger = require("../../server/server_logger");
 
 const path = require("path");
 const multer = require("multer");
@@ -54,6 +55,7 @@ router.post('/create', middleWare, function (req, res, next) {
             result: "success"
         });
     }).catch(err => {
+        Logger.error(`Couldn't create an agent: ${err}`);
         res.json({
             result: "error",
             error: err.message
@@ -85,6 +87,7 @@ router.post('/start', middleWare, function (req, res, next) {
             result: "success"
         });
     }).catch(err => {
+        Logger.error(`Couldn't start an agent: ${err}`);
         res.json({
             result: "error",
             error: err.message
