@@ -245,7 +245,7 @@ class Page_Server {
         $("#inp_updatesfonstart").bootstrapToggle("disable");
 
         $("#inp_experimental").bootstrapToggle("enable");
-        if (ssmConfig.expermiental == true) {
+        if (ssmConfig.experimental == true) {
           $("#inp_experimental").bootstrapToggle("on");
         } else {
           $("#inp_experimental").bootstrapToggle("off");
